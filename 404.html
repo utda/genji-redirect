@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://genji.lib.u-tokyo.ac.jp/">
+  <title>移転しました / Moved</title>
+  <script>
+    // dl ドメインに来たアクセスを、パス・クエリ・ハッシュを保ったまま lib へ転送する。
+    (function () {
+      var target = "https://genji.lib.u-tokyo.ac.jp"
+        + window.location.pathname
+        + window.location.search
+        + window.location.hash;
+      window.location.replace(target);
+    })();
+  </script>
+  <!-- JS 無効時のフォールバック（パスは保持できないためトップへ） -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=https://genji.lib.u-tokyo.ac.jp/">
+  </noscript>
+</head>
+<body>
+  <p>
+    このサイトは
+    <a id="link" href="https://genji.lib.u-tokyo.ac.jp/">https://genji.lib.u-tokyo.ac.jp/</a>
+    に移転しました。自動的に移動します。
+  </p>
+  <p>
+    This site has moved to
+    <a href="https://genji.lib.u-tokyo.ac.jp/">https://genji.lib.u-tokyo.ac.jp/</a>.
+    You are being redirected.
+  </p>
+</body>
+</html>
