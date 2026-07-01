@@ -8,7 +8,22 @@
   <title>移転しました / Moved</title>
   <script>
     // dl ドメインに来たアクセスを、パス・クエリ・ハッシュを保ったまま lib へ転送する。
+    // 旧サイトは PWA だったため、genji.dl.itc に残った Service Worker と
+    // キャッシュを破棄してから転送する（残存 SW による乗っ取り防止）。
     (function () {
+      try {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function (regs) {
+            regs.forEach(function (r) { r.unregister(); });
+          });
+        }
+        if (window.caches && caches.keys) {
+          caches.keys().then(function (keys) {
+            keys.forEach(function (k) { caches.delete(k); });
+          });
+        }
+      } catch (e) { /* no-op */ }
+
       var target = "https://genji.lib.u-tokyo.ac.jp"
         + window.location.pathname
         + window.location.search
@@ -24,7 +39,7 @@
 <body>
   <p>
     このサイトは
-    <a id="link" href="https://genji.lib.u-tokyo.ac.jp/">https://genji.lib.u-tokyo.ac.jp/</a>
+    <a href="https://genji.lib.u-tokyo.ac.jp/">https://genji.lib.u-tokyo.ac.jp/</a>
     に移転しました。自動的に移動します。
   </p>
   <p>

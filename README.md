@@ -9,6 +9,11 @@
 - `404.html` … 深いパス用。GitHub Pages は存在しないパスへのアクセスに `404.html` を返すため、
   ここで `location.pathname + search + hash` を lib ドメインに付け替えて転送する。
 - `CNAME` … このサイトのカスタムドメイン `genji.dl.itc.u-tokyo.ac.jp`。
+- `sw.js` … 自己消滅する Service Worker。旧サイトは PWA で、`genji.dl.itc` には
+  旧 Service Worker がブラウザに残る。放置すると残存 SW が古いキャッシュを配信して
+  転送を乗っ取るため、ブラウザが `/sw.js` 更新時に取得すると自分を unregister し
+  全キャッシュを削除して再読み込みする。`index.html`/`404.html` 側でも登録解除と
+  キャッシュ削除を行ってから転送する（二重の保険）。
 
 GitHub Pages はサーバ側 301 リダイレクトができないため、クライアント側 JS (`location.replace`) で実現している。
 JS 無効時は `<noscript>` の meta refresh でトップへフォールバックする（パスは保持できない）。
